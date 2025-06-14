@@ -1,0 +1,7 @@
+FROM docker:latest
+RUN apk add --no-cache bash docker-cli-compose
+COPY . ./app
+WORKDIR /app
+RUN chmod 755 /app/start.sh
+CMD dockerd &
+ENTRYPOINT ["/app/start.sh"]

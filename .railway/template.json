@@ -1,0 +1,48 @@
+{
+  "name": "Dify Self-Hosted",
+  "description": "Deploy your own Dify instance",
+  "services": {
+    "api": {
+      "variables": {
+        "SECRET_KEY": {
+          "description": "Secret key for session encryption",
+          "generate": "string",
+          "required": true
+        },
+        "INIT_PASSWORD": {
+          "description": "Initial admin password",
+          "default": "changeme123",
+          "required": true
+        },
+        "OPENAI_API_KEY": {
+          "description": "OpenAI API Key (optional)",
+          "required": false
+        },
+        "ANTHROPIC_API_KEY": {
+          "description": "Anthropic Claude API Key (optional)",
+          "required": false
+        }
+      }
+    },
+    "postgres": {
+      "variables": {
+        "POSTGRES_USER": {
+          "default": "postgres"
+        },
+        "POSTGRES_PASSWORD": {
+          "generate": "string"
+        },
+        "POSTGRES_DB": {
+          "default": "dify"
+        }
+      }
+    },
+    "redis": {
+      "variables": {
+        "REDIS_PASSWORD": {
+          "generate": "string"
+        }
+      }
+    }
+  }
+}

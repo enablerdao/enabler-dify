@@ -1,0 +1,27 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "cd docker && docker-compose up"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[[services]]
+name = "postgres"
+image = "postgres:15-alpine"
+
+[[services]]
+name = "redis"
+image = "redis:7-alpine"
+
+[[services]]
+name = "weaviate"
+image = "semitechnologies/weaviate:1.19.0"
+
+[environments.production]
+SECRET_KEY = "${{SECRET_KEY}}"
+INIT_PASSWORD = "${{INIT_PASSWORD}}"
+CONSOLE_API_URL = "${{RAILWAY_PUBLIC_DOMAIN}}"
+APP_WEB_URL = "${{RAILWAY_PUBLIC_DOMAIN}}"

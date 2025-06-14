@@ -210,3 +210,4 @@ mise.toml
 
 # Next.js build output
 .next/
+.env.railway
