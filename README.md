@@ -56,6 +56,10 @@
 
 Dify is an open-source LLM app development platform. Its intuitive interface combines agentic AI workflow, RAG pipeline, agent capabilities, model management, observability features, and more, allowing you to quickly move from prototype to production.
 
+## One-Click Deploy
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/deploy?template=https://github.com/enablerdao/enabler-dify)
+
 ## Quick start
 
 > Before installing Dify, make sure your machine meets the following minimum system requirements:

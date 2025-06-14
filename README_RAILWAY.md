@@ -1,5 +1,7 @@
 # Railway Deployment Guide for Enabler-Dify
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/deploy?template=https://github.com/enablerdao/enabler-dify)
+
 ## Quick Deploy via Railway Dashboard
 
 1. **Go to Railway Dashboard**

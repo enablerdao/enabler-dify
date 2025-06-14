@@ -1,0 +1,44 @@
+{
+  "name": "Enabler Dify",
+  "description": "Deploy Dify with one click on Railway",
+  "repository": "https://github.com/enablerdao/enabler-dify",
+  "envs": {
+    "SECRET_KEY": {
+      "description": "Secret key for session encryption",
+      "required": true,
+      "default": "${{secret(32)}}"
+    },
+    "INIT_PASSWORD": {
+      "description": "Initial admin password",
+      "required": true,
+      "default": "enabler-dify-2024"
+    },
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API Key (optional)",
+      "required": false
+    },
+    "ANTHROPIC_API_KEY": {
+      "description": "Anthropic Claude API Key (optional)",
+      "required": false
+    }
+  },
+  "services": [
+    {
+      "name": "api",
+      "dockerfile": "api/Dockerfile"
+    },
+    {
+      "name": "web", 
+      "dockerfile": "web/Dockerfile"
+    },
+    {
+      "name": "postgres",
+      "image": "postgres:15-alpine",
+      "volumes": ["/var/lib/postgresql/data"]
+    },
+    {
+      "name": "redis",
+      "image": "redis:7-alpine"
+    }
+  ]
+}
