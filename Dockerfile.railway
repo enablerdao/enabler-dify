@@ -1,0 +1,49 @@
+# Railway deployment Dockerfile for Dify
+FROM ubuntu:22.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    nodejs \
+    npm \
+    postgresql-client \
+    redis-tools \
+    nginx \
+    supervisor \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy all files
+COPY . .
+
+# Install Python dependencies
+RUN pip3 install -r api/requirements.txt
+
+# Install Node dependencies and build web
+WORKDIR /app/web
+RUN npm install && npm run build
+
+# Setup nginx
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Create supervisor config
+RUN mkdir -p /etc/supervisor/conf.d
+COPY docker/supervisor.conf /etc/supervisor/conf.d/dify.conf
+
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+# Start PostgreSQL and Redis if not using external services\n\
+# Start supervisord\n\
+/usr/bin/supervisord -c /etc/supervisor/supervisord.conf' > /app/entrypoint.sh
+
+RUN chmod +x /app/entrypoint.sh
+
+# Expose port
+EXPOSE 80
+
+# Start services
+CMD ["/app/entrypoint.sh"]
